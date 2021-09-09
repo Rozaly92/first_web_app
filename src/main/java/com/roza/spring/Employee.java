@@ -1,17 +1,27 @@
 package com.roza.spring;
 
+import javax.validation.constraints.*;
 import java.util.HashMap;
 import java.util.Map;
 
 public class Employee {
+    @Size(min = 2, message = "name must be minimum 2 symbols")
     private String name;
+    //@NotNull(message = "surname is required field") //превращает null в строку с нулевой длиной
+    //@NotEmpty(message = "surname is required field") //не допускает пустых значений но не проверяет наличие одних лишь пробелов
+    @NotBlank(message = "surname is required field")
     private String surname;
+    @Min(value=200, message = "must be greater than 499")
+    @Max(value=1000, message = "must be less than 1001")
     private int salary;
     private String department;
     private Map<String, String> departments;
     private String carBrand;
     private Map<String, String> carBrands;
-
+    private String [] languages;
+    private Map<String, String> languageList;
+    @Pattern(regexp = "\\d{3}-\\d{2}-\\d{2}", message = "please use pattern XXX-XX-XX")
+    private String phoneNumber;
 
     public Employee() {
         departments = new HashMap<>();
@@ -23,6 +33,35 @@ public class Employee {
         carBrands.put("BMW", "BMW");
         carBrands.put("Audi", "Audi");
         carBrands.put("Mercedes-Benz", "Mercedes-Benz");
+
+        languageList = new HashMap<>();
+        languageList.put("English","EN");
+        languageList.put("Deutch","DE");
+        languageList.put("French","FR");
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public Map<String, String> getLanguageList() {
+        return languageList;
+    }
+
+    public void setLanguageList(Map<String, String> languageList) {
+        this.languageList = languageList;
+    }
+
+    public String[] getLanguages() {
+        return languages;
+    }
+
+    public void setLanguages(String[] languages) {
+        this.languages = languages;
     }
 
     public String getCarBrand() {
